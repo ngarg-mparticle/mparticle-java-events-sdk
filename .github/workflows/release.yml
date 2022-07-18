@@ -1,4 +1,4 @@
-name: "Release SDK"
+name: "Release"
 
 on:
   workflow_dispatch:
@@ -13,7 +13,7 @@ jobs:
     name: "Confirm release is run from public/main branch"
     uses: mParticle/mparticle-workflows/.github/workflows/sdk-release-repo-branch-check.yml@stable
 
-  test:
+  unit-test:
     name: "Unit Tests"
     runs-on: ubuntu-latest
     steps:
@@ -42,6 +42,13 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: main
+      - name: "Import GPG Key"
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.GPG_PASSPHRASE }}
+          git_user_signingkey: true
+          git_commit_gpgsign: true
       - name: "Semantic Release --dry-run"
         if: ${{ github.event.inputs.dryRun == 'true' }}
         env:
@@ -85,8 +92,10 @@ jobs:
       mavenSigningKeyId: ${{ secrets.MAVEN_CENTRAL_SIGNING_KEY }}
       mavenSigningKeyPassword: ${{ secrets.MAVEN_CENTRAL_SIGNING_KEY_PASSWORD }}
     steps:
-      - name: "Checkout release branch"
+      - name: "Checkout Branch"
         uses: actions/checkout@v2
+        with:
+          ref: main
       - name: "Install JDK 11"
         uses: actions/setup-java@v2
         with:
