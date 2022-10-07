@@ -3,6 +3,8 @@ package com.mparticle.model;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -12,10 +14,10 @@ import java.util.Objects;
 public class ConsentState {
   public static final String SERIALIZED_NAME_GDPR = "gdpr";
   @SerializedName(SERIALIZED_NAME_GDPR)
-  private GDPRConsentState gdpr = null;
+  private Map consentPurposes;
 
-  public ConsentState gdpr(GDPRConsentState gdpr) {
-    this.gdpr = gdpr;
+  public ConsentState gdpr(String purposeName, GDPRConsentState gdpr) {
+    this.consentPurposes.put(purposeName, gdpr);
     return this;
   }
 
@@ -24,12 +26,12 @@ public class ConsentState {
    * @return gdpr
   **/
   @ApiModelProperty(required = true, value = "")
-  public GDPRConsentState getGdpr() {
-    return gdpr;
+  public Map getGdpr() {
+    return consentPurposes;
   }
 
-  public void setGdpr(GDPRConsentState gdpr) {
-    this.gdpr = gdpr;
+  public void setGdpr(Map consentPurposes) {
+    this.consentPurposes = consentPurposes;
   }
 
 
@@ -42,12 +44,12 @@ public class ConsentState {
       return false;
     }
     ConsentState consentState = (ConsentState) o;
-    return Objects.equals(this.gdpr, consentState.gdpr);
+    return Objects.equals(this.consentPurposes, consentState.consentPurposes);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(gdpr);
+    return Objects.hash(consentPurposes);
   }
 
 
@@ -55,7 +57,7 @@ public class ConsentState {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ConsentState {\n");
-    sb.append("    gdpr: ").append(toIndentedString(gdpr)).append("\n");
+    sb.append("    gdpr: ").append(toIndentedString(consentPurposes)).append("\n");
     sb.append("}");
     return sb.toString();
   }
