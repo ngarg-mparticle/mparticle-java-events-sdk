@@ -1,3 +1,10 @@
+## [2.4.1](https://github.com/mParticle/mparticle-java-events-sdk/compare/v2.4.0...v2.4.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* Fixed ConsentState class for purpose names ([#11](https://github.com/mParticle/mparticle-java-events-sdk/issues/11)) ([a0b6a5c](https://github.com/mParticle/mparticle-java-events-sdk/commit/a0b6a5cef81211311489d9413954b2120a8b21f7))
+
 # [2.4.0](https://github.com/mParticle/mparticle-java-events-sdk/compare/v2.3.3...v2.4.0) (2022-07-18)
 
 
